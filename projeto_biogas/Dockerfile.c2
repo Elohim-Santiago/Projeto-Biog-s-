@@ -1,0 +1,19 @@
+# imagem ubuntu
+FROM ubuntu:latest
+
+# instalando o python e o pip
+RUN apt update && apt install -y python3 python3-pip python3-venv
+
+# Diretório de trabalho no container
+WORKDIR /biogas_projeto
+
+# copiando o arquivo do python
+COPY biogas.py /biogas_projeto/
+
+# criando e ativando o ambiente virtual
+RUN python3 -m venv /biogas_projeto/venv
+RUN /biogas_projeto/venv/bin/pip install --upgrade pip
+RUN /biogas_projeto/venv/bin/pip install requests mysql-connector-python
+
+
+CMD ["/biogas_projeto/venv/bin/python", "/biogas_projeto/biogas.py."]

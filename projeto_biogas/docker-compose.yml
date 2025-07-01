@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  mysqlsrv:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 'biogas123'
+      MYSQL_DATABASE: 'biogas'
+    ports:
+      - "3306:3306"
+    volumes:
+      - /data/mysql:/var/lib/mysql
+    networks:
+      - biogas_integrador
+
+  biogas_py:
+    build:
+      context: /home/elohim/projeto_biogas
+      dockerfile: Dockerfile.c2
+    container_name: biogas_python
+    depends_on:
+      - mysqlsrv
+    networks:
+      - biogas_integrador
+
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - biogas_integrador
+
+networks:
+  biogas_integrador:
+    driver: bridge
+
