@@ -1,5 +1,4 @@
-# Arquivo mysql do projeto biogás: Elohim e Vinícius
-
+# Arquivo mysql do projeto biogás: Elohim 
 FROM mysql:latest
 
 RUN chown -R mysql:root /var/lib/mysql/
